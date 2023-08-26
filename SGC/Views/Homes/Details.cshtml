@@ -1,0 +1,78 @@
+﻿@model SGC.Models.Home
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Home</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Street.Name)
+            <a asp-action="Edit" asp-controller="Streets" asp-route-id="@Model.Street.Id">Изменить Улицу</a>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Street.Locality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Street.Locality.Name)
+            <a asp-action="Edit" asp-controller="Localities" asp-route-id="@Model.Street.Locality.Id">Изменить Населеный пункт</a>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CountApartments)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CountApartments)
+        </dd>
+    </dl>
+   
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                   Номер квартиры
+                </th>
+                <th>
+                    ФИО владельца 
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.apartments)
+            {
+               
+         
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.FIOOnwer
+                    </td>
+                    <td>
+                        <a asp-controller="Apartments" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Apartments" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Apartments" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr> 
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

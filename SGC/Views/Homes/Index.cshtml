@@ -1,0 +1,94 @@
+﻿@model IEnumerable<SGC.Models.Home>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Адреса дамов</h1>
+
+<div>
+    <form method="get" asp-controller="Homes" asp-action="Index">
+        <div class="form-inline">
+            <label class="control-label">Улицы: </label>
+            @Html.DropDownList("street", ViewData["streets"] as SelectList,"----",
+            htmlAttributes: new { @class = "form-control", id="street", name="street"})
+
+            <label class="control-label">Дом: </label>
+            @Html.DropDownList("home", ViewData["Homes"] as SelectList,"----",
+            htmlAttributes: new { @class = "form-control", id="Homes", name="Homes" })
+
+            <label class="control-label">Населеный пункт: </label>
+            @Html.DropDownList("locality", ViewData["Localities"] as SelectList,"----",
+            htmlAttributes: new { @class = "form-control", id="Localities", name="Localities" })
+
+            <label class="control-label">Кол-во квартир: </label>
+            <input type="number" name="countApartaments" id="countApartaments"  value="@null"/>
+           
+
+          
+            
+
+            <input type="submit" value="Фильтр" class="btn btn-danger" />
+        </div>
+    </form>
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street.Locality.LocalityPrefix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street.Locality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street.StreetPrefix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountApartments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street.Locality.LocalityPrefix.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street.Locality.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street.StreetPrefix.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountApartments)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
